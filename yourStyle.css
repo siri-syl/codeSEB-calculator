@@ -126,10 +126,10 @@ body {
 .button__row > .isPressed {
   background-color: #00da75;
 }
-/* 
+
 .button__row:active > .operator {
   background-color: #00da75;
-} */
+}
 
 .logo {
   position: fixed;

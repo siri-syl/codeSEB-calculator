@@ -92,9 +92,10 @@ const display = document.querySelector('.calculator__display--for-advanced'); //
 let firstNum, operatorForAdvanced, previousKey, previousNum;
 
 
-let firstNumber = "";
-let secondNumber = "";
-let op = "";
+let firstNumber = ""; // 첫 번째 숫자
+let secondNumber = ""; // 두 번째 숫자
+let op = ""; // 연산자
+let deci = false;  // 소수점
 
 buttons.addEventListener('click', function (event) {
   // 버튼을 눌렀을 때 작동하는 함수입니다.
@@ -129,13 +130,45 @@ buttons.addEventListener('click', function (event) {
     }
     if (action === 'operator') {
       console.log('연산자 ' + buttonContent + ' 버튼');
+      if(firstNumber !== "" && secondNumber !== ""){
+        previousNum = calculate(firstNumber, op, secondNumber);
+        firstNumber = previousNum;
+        secondNumber = "";
+        operator.textContent = buttonContent;
+        op = buttonContent;
+        deci = false;
+      }else {
       operator.textContent = buttonContent;
       op = buttonContent;
       console.log(operator);
       previousKey = 'operator';
+      deci = false;
+      }
     }
     if (action === 'decimal') {
+      if(deci === false && firstNumber === ""){
+        firstNumber = '0.';
+        display.textContent = firstNumber;
+        deci = true;
+        console.log('소수점 첫 번째문');
+      }else if(deci === false && firstNumber !== "" && op !== "" && secondNumber === ""){
+        secondNumber = '0.';
+        display.textContent = secondNumber;
+        deci = true;
+        console.log('소수점 두 번째문');
+      }else if(deci === false && op === "" && firstNumber !== ""){
+        display.textContent = firstNumber + '.';
+        firstNumber = firstNumber + '.';
+        deci = true;
+        console.log('소수점 세 번째문');
+      }else if(deci === false && op !== "" && secondNumber !== ""){
+        display.textContent = secondNumber + '.';
+        secondNumber = secondNumber + '.';
+        deci = true;
+        console.log('소수점 네 번째문');
     }
+  }
+  // 1 0 0 . . 1 2 5 2 + 1 2 + 1 5 - - 2 3 - 1 4 4 2
     if (action === 'clear') {
       console.log('초기화 버튼');
       display.textContent = 0;
@@ -143,11 +176,26 @@ buttons.addEventListener('click', function (event) {
       firstNumber = "";
       secondNumber = "";
       op = "";
+      deci = false;
     }
     if (action === 'calculate') {
       console.log('계산 버튼');
-      display.textContent = calculate(firstNumber, op, secondNumber);
+      if (previousKey !== 'calculate' && secondNumber !== "") {
+        display.textContent = calculate(firstNumber, op, secondNumber);
+        previousKey = 'calculate';
+        previousNum = calculate(firstNumber, op, secondNumber);
+        console.log('첫 번째 계산문')
+      } else if (previousKey === 'calculate'){
+        display.textContent = calculate(previousNum, op, secondNumber);
+        previousKey = 'calculate';
+        console.log('두 번째 계산문')
+        previousNum = calculate(previousNum, op, secondNumber);
+      } else if (secondNumber === "" && previousKey === 'operator'){
+        display.textContent = calculate(firstNumber, op, firstNumber);
+        previousKey = 'calculate';
+        console.log('세 번째 계산문')
+        previousNum = calculate(firstNumber, op, firstNumber);
+      }
     }
   }
-
 });
