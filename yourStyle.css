@@ -67,7 +67,7 @@ body {
   width: 100%;
   text-align: right;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 25px;
   vertical-align: middle;
   padding: 25px 15px;
   overflow: hidden;
@@ -117,6 +117,7 @@ body {
   background-color: rgb(255,149,13);
 }
 
+
 .button__row > .double {
   text-align: left;
   padding: 10px 20px 10px 22px;
@@ -124,12 +125,10 @@ body {
 }
 
 .button__row > .isPressed {
-  background-color: #00da75;
+  background-color: #ffffff;
+  color: rgb(255,149,13);
 }
 
-.button__row:active > .operator {
-  background-color: #00da75;
-}
 
 .logo {
   position: fixed;
@@ -137,4 +136,31 @@ body {
   top: 60px;
   opacity: 0.4;
   filter: invert(300%) sepia(100);
+}
+
+/* .operator:hover {
+  color: rgb(255,149,13);;
+  background-color: #ffffff;
+} */
+
+
+
+.button__row > .operator:active {
+  color: rgb(255,149,13);;
+  background-color: #ffffff;
+}
+
+.button__row > button:active {
+  color: rgb(45,45,45);
+  background-color: #ffffff;
+}
+
+.clear__and__enter > button:active {
+  background-color: #000000;
+  color: rgb(155,155,155);
+}
+
+.button__row > .operator:focus {
+  color: rgb(255,149,13);;
+  background-color: #ffffff;
 }
